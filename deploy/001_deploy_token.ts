@@ -25,6 +25,13 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     args: [tokenOwner],
     log: true,
   });
+
+  await deploy("NFTworms", {
+    from: deployer,
+    log: true,
+  });
+
+
 };
 export default func;
 func.tags = ['Token'];

@@ -1,14 +1,20 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 
 import { useAddRecentTransaction } from '@rainbow-me/rainbowkit';
-import { useSendTransaction, usePrepareSendTransaction } from 'wagmi';
+import { useSendTransaction, usePrepareSendTransaction,useAccount,useBalance } from 'wagmi';
 
 import { parseEther } from 'ethers/lib/utils.js';
+import NftMinter from './NftMinter';
 
 export default function Dapp() {
   const [receiverAddress, setReceiverAddress] = useState<string>("");
   const [transferAmount, setTransferAmout] = useState<string>("0");
   const addRecentTransaction = useAddRecentTransaction();
+  const {address}=useAccount();
+    const {data:balance}=useBalance({address});
+    console.log(address);
+    console.log(balance);
+
 
 
   const onRecipientAddressChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -90,7 +96,9 @@ export default function Dapp() {
           onClick={handleSendTransaction}
         >
           Confirm Transfer
+        
         </button>
+        <NftMinter receiver={receiverAddress} />
       </div>
     </div>
   )
